@@ -1,6 +1,9 @@
 #DOWNLOAD OF SRA FILES
 #Here we explain how we downloaded raw sequence reads from the SRA
 
+#If necessary, change folder names and edit commands accordingly.
+#Most commands were run on a computer cluster using multiple cores.
+
 #Custom scripts used here (see required_scripts folder):
 SRA_to_gzip_fastq.sh #Requires fastq-dump from SRA tool kits, see SRA_to_gzip_fastq.sh script for more details.
 fastq_check.sh
