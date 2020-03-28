@@ -8,7 +8,7 @@
 #Custom scripts used here (see required_scripts folder):
 rename_fastq_headers.sh
 
-#Raw outputs from DeviaTE are available at dryad: https://doi.org/10.5061/dryad.s7h44j13r
+#Raw outputs from DeviaTE and edited files for analysis in R are available at dryad: https://doi.org/10.5061/dryad.s7h44j13r
 
 #########################
 #INSTALLATION OF DEVIATE
