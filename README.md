@@ -1,5 +1,5 @@
 # Transposable element landscape in Drosophila populations selected for longevity
-Analysis of transposable elements in Drosophila populations selected for longevity through postponed reproduction.
+Analysis of transposable elements in Drosophila melanogaster populations selected for longevity through postponed reproduction.
 
 Manuscript on bioRxiv: https://www.biorxiv.org/content/10.1101/867838v1
 
