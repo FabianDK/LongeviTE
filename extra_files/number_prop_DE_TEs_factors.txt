@@ -1,0 +1,13 @@
+Factor	Level	Sex	TE	Prop
+Sex	m	NA	109	0.893442623
+Sex	f	NA	0	0
+Regime	control	m	17	0.139344262
+Regime	selected	m	2	0.016393443
+Regime	control	f	6	0.049180328
+Regime	selected	f	4	0.032786885
+Age	young	m	0	0
+Age	old	m	89	0.729508197
+Age	young	f	26	0.211382114
+Age	old	f	9	0.073170732
+RxA	f1	RxA	28	0.229508197
+RxA	m1	RxA	0	0
