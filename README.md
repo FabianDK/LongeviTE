@@ -10,3 +10,4 @@ Contact: daniel.fabian@ebi.ac.uk
 Manual:
 1. Please run scripts in the correct order (see number labels).
 2. Adjust folder names and paths to fit your system.
+3. All text ouputs are in the folder output_files. Most of these are already in the supplementary material. Those not present here or in the supplementary material can be found on dryad.
