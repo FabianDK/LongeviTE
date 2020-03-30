@@ -41,7 +41,7 @@ hoed.ratio = log2(sum(int.hoed.sign$Diff_PostEarly > 0) / sum(int.hoed.sign$Diff
 remo.ratio = log2(sum(int.remo.sign$Diff_SelCont > 0) / sum(int.remo.sign$Diff_SelCont < 0))
 
 #for result tables of simulations loaded here, see: output_of_15
-#Fabian2018
+#Carnes2015
 carn.2k = read.table("/Users/danfab/effective_pop_size/Carnes/genetic_drift_sim/Ncont2000_Nsel2000_C850_S170_Reps5_DirCut0.5_Runs5000_PropType.txt",header=T)
 carn.1k = read.table("/Users/danfab/effective_pop_size/Carnes/genetic_drift_sim/Ncont1000_Nsel1000_C850_S170_Reps5_DirCut0.5_Runs5000_PropType.txt",header=T)
 carn.1k.50 = read.table("/Users/danfab/effective_pop_size/Carnes/genetic_drift_sim/Ncont1000_Nsel500_C850_S170_Reps5_DirCut0.5_Runs5000_PropType.txt",header=T)
@@ -62,7 +62,7 @@ remo.640 = read.table("/Users/danfab/effective_pop_size/Remolina/genetic_drift_s
 remo.640.50 = read.table("/Users/danfab/effective_pop_size/Remolina/genetic_drift_sim/Ncont640_Nsel160_C80_S50_Reps3_DirCut0.5_Runs5000_PropType.txt",header=T)
 remo.640.75 = read.table("/Users/danfab/effective_pop_size/Remolina/genetic_drift_sim/Ncont640_Nsel80_C80_S50_Reps3_DirCut0.5_Runs5000_PropType.txt",header=T)
 
-#Hoedjes
+#Hoedjes2019
 hoed.2k = read.table("/Users/danfab/effective_pop_size/Hoedjes/genetic_drift_sim/Ncont2000_Nsel2000_C115_S58_Reps12_DirCut0.5_Runs5000_PropType.txt",header =T)
 hoed.2k.50 = read.table("/Users/danfab/effective_pop_size/Hoedjes/genetic_drift_sim/Ncont2000_Nsel1000_C115_S58_Reps12_DirCut0.5_Runs5000_PropType.txt",header =T)
 hoed.2k.75 = read.table("/Users/danfab/effective_pop_size/Hoedjes/genetic_drift_sim/Ncont2000_Nsel500_C115_S58_Reps12_DirCut0.5_Runs5000_PropType.txt",header =T)
@@ -150,7 +150,7 @@ hist(log2(carn.1k$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,ad
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=carn.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=0.8, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of S and C = 1000", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(carn.1k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -164,7 +164,7 @@ hist(log2(carn.1k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=carn.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=0.8, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "50% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(carn.1k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -178,7 +178,7 @@ hist(log2(carn.1k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=carn.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830,"P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=0.8, y=830,"P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "75% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 dev.off()
 
@@ -197,7 +197,7 @@ hist(log2(carn.2k$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,ad
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=carn.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=0.8, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of S and C = 2000", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(carn.2k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -211,7 +211,7 @@ hist(log2(carn.2k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=carn.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=0.8, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "50% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(carn.2k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -225,7 +225,7 @@ hist(log2(carn.2k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=carn.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830,"P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=0.8, y=830,"P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "75% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 dev.off()
 
@@ -254,7 +254,7 @@ hist(log2(remo.640$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,a
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=remo.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ncont = 640; Nsel = 320", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(remo.640.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,axes=F,
@@ -268,7 +268,7 @@ hist(log2(remo.640.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.de
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=remo.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ncont = 640; Nsel = 160", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(remo.640.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,axes=F,
@@ -282,7 +282,7 @@ hist(log2(remo.640.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.de
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=remo.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ncont = 640; Nsel = 80", bty="n",cex = 1.4,text.col = "black")
 dev.off()
 
@@ -301,7 +301,7 @@ hist(log2(remo.440$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,a
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=remo.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of C = 440; Ne of S = 220", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(remo.440.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,axes=F,
@@ -315,7 +315,7 @@ hist(log2(remo.440.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.de
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=remo.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of C = 440; Ne of S = 110", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(remo.440.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,axes=F,
@@ -329,7 +329,7 @@ hist(log2(remo.440.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.de
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=remo.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of C = 440; Ne of S = 55", bty="n",cex = 1.4,text.col = "black")
 
 dev.off()
@@ -358,7 +358,7 @@ hist(log2(hoed.2k$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,ad
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=hoed.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of S and C = 2000", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(hoed.2k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -372,7 +372,7 @@ hist(log2(hoed.2k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=hoed.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "50% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(hoed.2k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -386,7 +386,7 @@ hist(log2(hoed.2k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=hoed.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830,"P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830,"P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "75% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 dev.off()
 
@@ -405,7 +405,7 @@ hist(log2(hoed.4k$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def,ad
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=hoed.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "Ne of S and C = 4000", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(hoed.4k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -419,7 +419,7 @@ hist(log2(hoed.4k.50$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=hoed.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830, "P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830, "P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "50% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 
 hist(log2(hoed.4k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def, 
@@ -433,7 +433,7 @@ hist(log2(hoed.4k.75$ratio.SC.to.CS),breaks = 25, xlim = xlim.def, ylim=ylim.def
 abline(v=0,lty=3,lwd=2,col="black")
 abline(v=hoed.ratio,lty=2,lwd=2,col="red")
 box(lty = 1, col = 'black')
-legend(x=1.2, y=830,"P = 0", bty="n",cex = 1.4,text.col = "red")
+legend(x=1.2, y=830,"P < 0.0002", bty="n",cex = 1.4,text.col = "red")
 legend("topleft", "75% reduced Ne of S", bty="n",cex = 1.4,text.col = "black")
 dev.off()
 
