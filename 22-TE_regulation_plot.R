@@ -4,6 +4,8 @@
 #Please change folder names and edit commands accordingly.
 source("/Users/danfab/R_functions.R")
 
+setwd("/Users/danfab/comp_all/")
+
 #Barcharts for number of differemtially expressed TE regulation genes
 de_teReg = read.table("/Users/danfab/extra_files/number_prop_DE_TEregulationGENES_Main_factors.txt",header=T) #Created table in excel
 de_teReg$Level = factor(de_teReg$Level, c("young","old","control","selected","f","m","f1","m1"))
@@ -32,7 +34,7 @@ xx = barplot(mat.carnes,beside = T, col = c("blue","red","goldenrod2", "goldenro
 grid(col = "lightgray", lty = 1, lwd = 0.5, equilogs = TRUE)
 barplot(mat.carnes,beside = T, col = c("blue","red","goldenrod2", "goldenrod4","green4","green4",
                                        "blue","red","goldenrod2", "goldenrod4","green4","green4"),
-        ylab = "No. of TE regulation genes (D.E.)",
+        ylab = "No. of TE Regulation Genes (D.E.)",
         ylim=c(0,50), space=c(0.6,0,
                               0.6,0,
                               0.6,0,
@@ -80,7 +82,7 @@ mat.genetic_diff = c(10,3,7,6) #Numbers of candidate genes associated to TE regu
 pdf("GenetCandidate_TEregulGenes_all.pdf", width=4, height=8)
 par(mfrow = c(1,1),font=1,font.lab=1,font.axis=1,cex.lab=2.2,cex.main = 2,cex.axis=1.8,mar=c(8,4.6,2,2))
 xx = barplot(mat.genetic_diff,beside = T,
-             ylab="No. of TE regulation genes (G.D.)",
+             ylab="No. of TE Regulation Genes (G.D.)",
              ylim=c(0,10.5))
 grid(col = "lightgray", lty = 1, lwd = 0.5, equilogs = TRUE)
 barplot(mat.genetic_diff,beside = T,
