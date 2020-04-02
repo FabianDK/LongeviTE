@@ -11,3 +11,4 @@ Manual:
 1. Please run scripts in the correct order (see number labels).
 2. Adjust folder names and paths to fit your system.
 3. All text ouputs are in the folder output_files. Most of these are already in the supplementary material. Those not present here or in the supplementary material are available on dryad.
+4. To run R scripts, please make sure custom functions in R_functions.R are loaded.
