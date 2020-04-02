@@ -1,4 +1,4 @@
-#FASTQC ANALYSIS: 
+#FASTQC ANALYSIS (on gzip compressed fastq files): 
 #We downloaded and extracted fastqc_v0.11.8.zip from: http://www.bioinformatics.babraham.ac.uk/projects/download.html
 
 #Please edit code below so that the full path to fastqc is given (i.e. replace /EDIT_PATH/ with correct path).
