@@ -285,7 +285,7 @@ nrow(remo.stat.filt.sign) #76
 nrow(remo.stat.filt.signUP) #63
 nrow(remo.stat.filt.signDOWN) #13
 
-#Approach #3: Consistent differences
+#Approach #2: Consistent differences
 remo.stat.filt$ConsSC = apply(remo.stat.filt[,c('Cont_1','Cont_2' ,'Cont_3')], 1, FUN=max) < apply(remo.stat.filt[,c('Sel_1','Sel_2' ,'Sel_3')], 1, FUN=min)
 remo.stat.filt$ConsCS = apply(remo.stat.filt[,c('Cont_1','Cont_2' ,'Cont_3')], 1, FUN=min) > apply(remo.stat.filt[,c('Sel_1','Sel_2' ,'Sel_3')], 1, FUN=max)
 table(remo.stat.filt$ConsCS) #0
