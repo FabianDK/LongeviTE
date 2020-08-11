@@ -231,6 +231,21 @@ text(seq(1,nrow(res.TE.list.regime),1), par("usr")[3]-0.15,
      labels = res.TE.list.regime$flybase_name, cex=1)
 dev.off()
 
+#absolute log2FC differences between sex,age,regime - all TE families
+log2fc.main.factors = as.data.frame(rbind(cbind(res.TE.list.sex$log2FoldChange,"Sex"),
+                                          cbind(res.TE.list.age$log2FoldChange,"Age"),
+                                          cbind(res.TE.list.regime$log2FoldChange,"Regime")))
+log2fc.main.factors[,1] = numfact(log2fc.main.factors[,1])
+log2fc.main.factors$V2 = factor(log2fc.main.factors$V2, levels = c("Sex","Age","Regime"))
+ggplot(data = log2fc.main.factors, aes(x=log2fc.main.factors$V2,y=abs(log2fc.main.factors$V1),group=log2fc.main.factors$V2)) + geom_boxplot()
+
+#absolute log2FC differences between sex,age,regime - only significant
+log2fc.main.factors.sign = as.data.frame(rbind(cbind(res.TE.list.sex[res.TE.list.sex$padj<0.05,]$log2FoldChange,"Sex"),
+                                          cbind(res.TE.list.age[res.TE.list.age$padj<0.05,]$log2FoldChange,"Age"),
+                                          cbind(res.TE.list.regime[res.TE.list.regime$padj<0.05,]$log2FoldChange,"Regime")))
+log2fc.main.factors.sign[,1] = numfact(log2fc.main.factors.sign[,1])
+log2fc.main.factors.sign$V2 = factor(log2fc.main.factors.sign$V2, levels = c("Sex","Age","Regime"))
+ggplot(data = log2fc.main.factors.sign, aes(x=log2fc.main.factors.sign$V2,y=abs(log2fc.main.factors.sign$V1),group=log2fc.main.factors.sign$V2)) + geom_boxplot()
 
 #complete model
 norm.counts = counts(dds1, normalized=TRUE)
@@ -649,13 +664,25 @@ cor.test(res.TE.list.age.mf$log2FoldChange.x,
 cor.test(res.TE.list.reg.mf$log2FoldChange.x,
          res.TE.list.reg.mf$log2FoldChange.y,method="pearson") #r = 0.728792 , p =  2.2e-16
 
-pdf("Fig4_Regime_Age_M_F_change_allDmel1_revised_MainEffectOnly1.pdf", width=16, height=8)
+col1 = "olivedrab3"
+col3 = "black"
+col2 = "sienna2"
+
+col1 = "violetred2" #orchid3
+col3 = "forestgreen" #springreen3
+col2 = "goldenrod1" #tomato1
+
+# col1 = "limegreen"
+# col2 = "violetred3"
+# col3 = "sienna2"
+
+pdf("Fig4_Regime_Age_M_F_change_allDmel1_revised_MainEffectOnly3.pdf", width=16, height=8)
 par(mfrow = c(1,2),font=1,font.lab=1,font.axis=1,cex.lab=1.9,cex.axis=1.9,mar=c(8,5,2,1.5))
 plot(res.TE.list.reg.mf$log2FoldChange.x,
      res.TE.list.reg.mf$log2FoldChange.y,
      ylab=expression(paste('Log'[2], ' FC (S/C males)')),xlab=expression(paste('Log'[2], ' FC (S/C females)')),
      xlim=c(-3,2),ylim=c(-3,2),
-     cex = 1.8,
+     cex = 1.9,
      pch = 21, bg="darkgrey", col = "darkgrey",
      grid(col = "lightgray", lty = 1, lwd = 0.5, equilogs = TRUE),
      axes=F,frame=T)
@@ -665,24 +692,24 @@ abline(h=0,lty = 2,lwd = 2)
 abline(v=0,lty = 2,lwd = 2)
 points(res.TE.list.reg.mf[res.TE.list.reg.mf$padj.x<0.05,]$log2FoldChange.x,
        res.TE.list.reg.mf[res.TE.list.reg.mf$padj.x<0.05,]$log2FoldChange.y, 
-       pch=21,bg="red",cex=2.2)
+       pch=21,bg=col3,cex=2.4)
 points(res.TE.list.reg.mf[res.TE.list.reg.mf$padj.y<0.05,]$log2FoldChange.x,
        res.TE.list.reg.mf[res.TE.list.reg.mf$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="blue",cex=2.2)
+       pch=21,bg=col1,cex=2.4)
 points(res.TE.list.reg.mf[res.TE.list.reg.mf$padj.x<0.05 & res.TE.list.reg.mf$padj.y<0.05,]$log2FoldChange.x,
        res.TE.list.reg.mf[res.TE.list.reg.mf$padj.x<0.05 & res.TE.list.reg.mf$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="orange",cex=2.2)
+       pch=21,bg=col2,cex=2.4)
 text(1.5,1.6,labels = "r = 0.73***",col = "black",cex=1.9)
-text(-1.8,2,labels = "Padj<0.05 in males only",col = "blue",cex=1.5)
-text(-1.8,1.7,labels = "Padj<0.05 in females only",col = "red",cex=1.5)
-text(-1.8,1.4,labels = "Padj<0.05 in both sexes",col = "orange",cex=1.5)
+text(-1.8,2,labels = "Padj<0.05 in males",col = col1,cex=1.5)
+text(-1.8,1.7,labels = "Padj<0.05 in females",col = col3,cex=1.5)
+text(-1.8,1.4,labels = "Padj<0.05 in both sexes",col = "goldenrod",cex=1.5)
 
 #SWITCH SIGN TO HAVE YOUNG/OLD NOT OLD/YOUNG (thisi sb etter for the comparison of age vs regime changes)
 plot(-res.TE.list.age.mf$log2FoldChange.x,
      -res.TE.list.age.mf$log2FoldChange.y,
      ylab=expression(paste('Log'[2], ' FC (Young/Old males)')),xlab=expression(paste('Log'[2], ' FC (Young/Old females)')),
      xlim=c(-2.3,2),ylim=c(-2.3,2),
-     cex = 1.8,
+     cex = 1.9,
      pch = 21, bg="darkgrey", col = "darkgrey",
      grid(col = "lightgray", lty = 1, lwd = 0.5, equilogs = TRUE),
      axes=F,frame=T)
@@ -692,17 +719,17 @@ abline(h=0,lty = 2,lwd = 2)
 abline(v=0,lty = 2,lwd = 2)
 points(-res.TE.list.age.mf[res.TE.list.age.mf$padj.x<0.05,]$log2FoldChange.x,
        -res.TE.list.age.mf[res.TE.list.age.mf$padj.x<0.05,]$log2FoldChange.y, 
-       pch=21,bg="red",cex=2.2)
+       pch=21,bg=col3,cex=2.4)
 points(-res.TE.list.age.mf[res.TE.list.age.mf$padj.y<0.05,]$log2FoldChange.x,
        -res.TE.list.age.mf[res.TE.list.age.mf$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="blue",cex=2.2)
+       pch=21,bg=col1,cex=2.4)
 points(-res.TE.list.age.mf[res.TE.list.age.mf$padj.x<0.05 & res.TE.list.age.mf$padj.y<0.05,]$log2FoldChange.x,
        -res.TE.list.age.mf[res.TE.list.age.mf$padj.x<0.05 & res.TE.list.age.mf$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="orange",cex=2.2)
+       pch=21,bg=col2,cex=2.4)
 text(1.5,1.6,labels = "r = 0.5***",col = "black",cex=1.9)
-text(-1.2,2,labels = "Padj<0.05 in males only",col = "blue",cex=1.5)
-text(-1.2,1.7,labels = "Padj<0.05 in females only",col = "red",cex=1.5)
-text(-1.2,1.4,labels = "Padj<0.05 in both sexes",col = "orange",cex=1.5)
+text(-1.2,2,labels = "Padj<0.05 in males",col = col1,cex=1.5)
+text(-1.2,1.7,labels = "Padj<0.05 in females",col = col3,cex=1.5)
+text(-1.2,1.4,labels = "Padj<0.05 in both sexes",col = "goldenrod",cex=1.5)
 dev.off()
 
 #######################################################
@@ -717,12 +744,13 @@ de_te$Level
 # Stacked barplot with multiple groups
 barplot.DE= ggplot(data=de_te, aes(x=paste(Factor,Sex,sep="_"), y=Prop*c(1,-1), fill=Level)) +
   geom_bar(stat="identity", color = "black") + 
-  scale_fill_manual(values=c("goldenrod2", "goldenrod4","blue","red","black","lightblue","green4","white")) + 
+  scale_fill_manual(values=c("navajowhite2", "goldenrod4","blue","red","black","lightblue","aquamarine3","white")) +  #green4
   geom_hline(yintercept = 0) +
   THEME_DEF + theme(axis.text.y = element_text(size=28, colour = "black"),
                     axis.text.x = element_text(size=28, colour = "black"),
-                    axis.title.y = element_text(vjust=0.5,size=30)) +
-  ylim(-1,1) + ylab("Proportion D.E. TEs") + xlab("") +
+                    axis.title.y = element_text(vjust=0.5,size=38)) +
+  ylab("Proportion D.E. TEs") + xlab("") +
+  scale_y_continuous(limits = c(-1,1),labels = c("1.0","0.5","0","0.5","1.0")) + 
   scale_x_discrete(limits=c("Sex_NA", "Regime_m", "Regime_f","Age_m","Age_f","RxA_RxA"), 
                    labels=c("Sex_NA" = "Sex", 
                             "Regime_m" = "Regime 
@@ -733,7 +761,7 @@ M", "Age_f" = "Age
 F","RxA_RxA" = "RxA 
 interaction")) + annotate("text", x = 6, y=1, label = "n = 123",size = 9)
 barplot.DE    
-ggsave(barplot.DE, file="Fig4_DE_TE_Numbers_MainEffectOnly.pdf", height=10, width=12)
+ggsave(barplot.DE, file="Fig4_DE_TE_Numbers_MainEffectOnly1.pdf", height=10, width=12)
 
 
 ########################################
@@ -787,13 +815,17 @@ res.TE.list.age.reg.M = merge(res.TE.list.M$Age_old_vs_young,
 #PLOT - AGE VS REGIME CHANGE
 ########################################
 
-pdf("Fig4_Regime_vs_Age_change_allDmel_revised_MainEffectOnly1.pdf", width=16, height=8)
+col1 = "violetred2" #orchid3
+col2 = "forestgreen" #springreen3
+col3 = "goldenrod1" #tomato1
+
+pdf("Fig4_Regime_vs_Age_change_allDmel_revised_MainEffectOnly2.pdf", width=16, height=8)
 par(mfrow = c(1,2),font=1,font.lab=1,font.axis=1,cex.lab=2,cex.axis=1.9,mar=c(8,5,2,1.5))
 plot(-res.TE.list.F$Age_old_vs_young$log2FoldChange,
      res.TE.list.F$Regime_Sel_vs_Cont$log2FoldChange,
      ylab=expression(paste('Log'[2], ' FC (S/C)')),xlab=expression(paste('Log'[2], ' FC (Young/Old)')),
      xlim=c(-3,2),ylim=c(-3,2),
-     cex = 1.8,
+     cex = 1.9,
      pch = 21, bg="darkgrey", col = "darkgrey",
      grid(col = "lightgray", lty = 1, lwd = 0.5, equilogs = TRUE),
      axes=F,frame=T)
@@ -803,24 +835,24 @@ abline(h=0,lty = 2,lwd = 2)
 abline(v=0,lty = 2,lwd = 2)
 points(-res.TE.list.age.reg.F[res.TE.list.age.reg.F$padj.x<0.05,]$log2FoldChange.x, #sign age
        res.TE.list.age.reg.F[res.TE.list.age.reg.F$padj.x<0.05,]$log2FoldChange.y, 
-       pch=21,bg="red",cex=2.2)
+       pch=21,bg=col2,cex=2.4)
 points(-res.TE.list.age.reg.F[res.TE.list.age.reg.F$padj.y<0.05,]$log2FoldChange.x, #sign regime
        res.TE.list.age.reg.F[res.TE.list.age.reg.F$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="blue",cex=2.2)
+       pch=21,bg=col1,cex=2.4)
 points(-res.TE.list.age.reg.F[res.TE.list.age.reg.F$padj.x<0.05 & res.TE.list.age.reg.F$padj.y<0.05,]$log2FoldChange.x,
        res.TE.list.age.reg.F[res.TE.list.age.reg.F$padj.x<0.05 & res.TE.list.age.reg.F$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="orange",cex=2.2) #sign both
+       pch=21,bg=col3,cex=2.4) #sign both
 
 text(1.5,1.6,labels = "r = 0.21*",col = "black",cex=1.9)
-text(-1.8,2,labels = "Padj<0.05 for Regime",col = "blue",cex=1.5)
-text(-1.8,1.7,labels = "Padj<0.05 for Age",col = "red",cex=1.5)
-text(-1.8,1.4,labels = "Padj<0.05 for both",col = "orange",cex=1.5)
+text(-1.8,2,labels = "Padj<0.05 for Regime",col = col1,cex=1.5)
+text(-1.8,1.7,labels = "Padj<0.05 for Age",col = col2,cex=1.5)
+text(-1.8,1.4,labels = "Padj<0.05 for both",col = "goldenrod",cex=1.5)
 
 plot(-res.TE.list.M$Age_old_vs_young$log2FoldChange,
      res.TE.list.M$Regime_Sel_vs_Cont$log2FoldChange,
      ylab="",xlab=expression(paste('Log'[2], ' FC (Young/Old)')),
      xlim=c(-3,2),ylim=c(-3,2),
-     cex = 1.8,
+     cex = 1.9,
      pch = 21, bg="darkgrey", col = "darkgrey",
      grid(col = "lightgray", lty = 1, lwd = 0.5, equilogs = TRUE),
      axes=F,frame=T)
@@ -830,17 +862,17 @@ abline(h=0,lty = 2,lwd = 2)
 abline(v=0,lty = 2,lwd = 2)
 points(-res.TE.list.age.reg.M[res.TE.list.age.reg.M$padj.x<0.05,]$log2FoldChange.x, #sign age
        res.TE.list.age.reg.M[res.TE.list.age.reg.M$padj.x<0.05,]$log2FoldChange.y, 
-       pch=21,bg="red",cex=2.2)
+       pch=21,bg=col2,cex=2.4)
 points(-res.TE.list.age.reg.M[res.TE.list.age.reg.M$padj.y<0.05,]$log2FoldChange.x, #sign regime
        res.TE.list.age.reg.M[res.TE.list.age.reg.M$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="blue",cex=2.2)
+       pch=21,bg=col1,cex=2.4)
 points(-res.TE.list.age.reg.M[res.TE.list.age.reg.M$padj.x<0.05 & res.TE.list.age.reg.M$padj.y<0.05,]$log2FoldChange.x,
        res.TE.list.age.reg.M[res.TE.list.age.reg.M$padj.x<0.05 & res.TE.list.age.reg.M$padj.y<0.05,]$log2FoldChange.y, 
-       pch=21,bg="orange",cex=2.2) #sign both
+       pch=21,bg=col3,cex=2.4) #sign both
 text(1.4,1.6,labels = "r = -0.01 (ns)",col = "black",cex=1.9)
-text(-1.8,2,labels = "Padj<0.05 for Regime",col = "blue",cex=1.5)
-text(-1.8,1.7,labels = "Padj<0.05 for Age",col = "red",cex=1.5)
-text(-1.8,1.4,labels = "Padj<0.05 for both",col = "orange",cex=1.5)
+text(-1.8,2,labels = "Padj<0.05 for Regime",col = col1,cex=1.5)
+text(-1.8,1.7,labels = "Padj<0.05 for Age",col = col2,cex=1.5)
+text(-1.8,1.4,labels = "Padj<0.05 for both",col = "goldenrod",cex=1.5)
 dev.off()
 
 #Check expression of TE regulation genes
@@ -1206,7 +1238,7 @@ dev.off()
 ######################################################################
 #CORRELATION BETWEEN FOLD CHANGE AND GENOMIC INSERTIONS
 ######################################################################
-
+effcut = 0.3
 TE.expr.f = read.table("/Users/danfab/Carnes/RNAseq/TE_expr_MAIN_model_Females.txt",header=T)
 TE.detect = read.table("/Users/danfab/Carnes/TE_maps/res_files/corrected/edit/output_stat/carnes_TE_stat_covfilter_withConsistent.txt",header = T)
 TE.expr.f$TEfam = row.names(TE.expr.f)
@@ -1218,11 +1250,13 @@ cor.test(TE.expr.Diff.f$log2RatSelCont, TE.expr.Diff.f$Regime_Sel_vs_Cont.log2Fo
 
 #Colors
 TE.expr.f.sign = TE.expr.f[TE.expr.f$Regime_Sel_vs_Cont.padj < 0.05,]
-TE.detect.sign = TE.detect[TE.detect$Bonf == TRUE,]
-both.sign = cbind(intersect(row.names(TE.expr.f.sign),TE.detect.sign$TEfam),"forestgreen")
-expr.sign = cbind(as.character(TE.expr.f.sign[!TE.expr.f.sign$TEfam %in% TE.detect.sign$TEfam,]$TEfam),"magenta")
-ins.sign = cbind(as.character(TE.detect.sign[!TE.detect.sign$TEfam %in% TE.expr.f.sign$TEfam,]$TEfam),"orange2")
-not.sign = cbind(intersect(TE.expr.f[TE.expr.f$Regime_Sel_vs_Cont.padj >= 0.05,]$TEfam, TE.detect[TE.detect$Bonf == FALSE,]$TEfam),"darkgrey")
+TE.detect.sign = TE.detect[TE.detect$Bonf == TRUE & abs(TE.detect$Diff_SelCont) > effcut,] #ADD EFFECT SIZE CUTOFF
+both.sign = cbind(intersect(row.names(TE.expr.f.sign),TE.detect.sign$TEfam),"sienna3") #forestgreen
+expr.sign = cbind(as.character(TE.expr.f.sign[!TE.expr.f.sign$TEfam %in% TE.detect.sign$TEfam,]$TEfam),"black") #magenta
+ins.sign = cbind(as.character(TE.detect.sign[!TE.detect.sign$TEfam %in% TE.expr.f.sign$TEfam,]$TEfam),"olivedrab3") #orange2
+not.sign = cbind(intersect(TE.expr.f[TE.expr.f$Regime_Sel_vs_Cont.padj >= 0.05,]$TEfam, 
+                           TE.detect[TE.detect$Bonf == FALSE | abs(TE.detect$Diff_SelCont) <= effcut,]$TEfam),"darkgrey")
+
 sign.cols = rbind(both.sign,expr.sign,ins.sign,not.sign)
 colnames(sign.cols) = c("TEfam","col")
 sign.cols = sign.cols[sign.cols[,1] %in% intersect(sign.cols[,1],TE.expr.Diff.f$TEfam),]
@@ -1230,7 +1264,7 @@ TE.expr.Diff.f = merge(TE.expr.Diff.f,sign.cols, by = "TEfam")
 TE.expr.Diff.f$col = as.character(TE.expr.Diff.f$col)
 
 #output_path = "Carnes/RNAseq/map2ref/"
-pdf("Fig4_log2_insertions_vs_log2_RegimeExpr_corr_allDmel_MainEffectsOnly.pdf", width=6, height=5)
+pdf("Fig4_log2_insertions_vs_log2_RegimeExpr_corr_allDmel_MainEffectsOnly_EffCut03.pdf", width=6, height=5)
 par(mfrow = c(1,1),font=1,font.lab=1,font.axis=1,cex.lab=1.6,cex.axis=1.3,mar=c(4.1,5,0.8,2))
 plot(TE.expr.Diff.f$log2RatSelCont, TE.expr.Diff.f$Regime_Sel_vs_Cont.log2FoldChange, 
      ylab = "", xlab = "",
@@ -1243,7 +1277,8 @@ axis(1,seq(-1,1,0.5),seq(-1,1,0.5),lwd=1,line=0,mgp=c(3, .6, 0))
 abline(h=0,lty=2)
 abline(v=0,lty=2)
 points(TE.expr.Diff.f[!TE.expr.Diff.f$col == "darkgrey",]$log2RatSelCont, 
-       TE.expr.Diff.f[!TE.expr.Diff.f$col == "darkgrey",]$Regime_Sel_vs_Cont.log2FoldChange,cex=1.8, pch=21, bg = TE.expr.Diff.f[!TE.expr.Diff.f$col == "darkgrey",]$col, col ="black")
+       TE.expr.Diff.f[!TE.expr.Diff.f$col == "darkgrey",]$Regime_Sel_vs_Cont.log2FoldChange,cex=1.8, pch=21, 
+       bg = TE.expr.Diff.f[!TE.expr.Diff.f$col == "darkgrey",]$col, col ="black")
 
 title(ylab=expression(paste('Expression: Log'[2], ' FC (S/C)')), line=1.7, cex.lab=1.6)
 title(xlab=expression(paste('Genomic Insertions: Log'[2], ' FC (S/C)')), line=2.2, cex.lab=1.6)
@@ -1251,8 +1286,11 @@ title(xlab=expression(paste('Genomic Insertions: Log'[2], ' FC (S/C)')), line=2.
 text(0.77,1.2, labels = "Females",cex=1.6)
 text(0.77,0.88, labels = expression(paste(italic(rho), ' = 0.14 (ns)')),cex=1.3)
 
-text(-0.55,1.2, labels = "Only expression sign.",col = "magenta",cex=1.2)
-text(-0.545,0.95,labels = "Only abundance sign.",col = "orange2",cex=1.2)
-text(-0.775,0.7,labels = "Both sign.",col = "forestgreen",cex=1.2)
+text(-0.55,1.2, labels = "Only expression sign.",col = "black",cex=1.2)
+text(-0.545,0.95,labels = "Only abundance sign.",col = "olivedrab",cex=1.2)
+text(-0.775,0.7,labels = "Both sign.",col = "sienna2",cex=1.2)
 dev.off()
 
+# col1 = "olivedrab3"
+# col3 = "black"
+# col2 = "sienna2"
